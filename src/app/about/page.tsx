@@ -12,7 +12,7 @@ export default function AboutPage() {
     <PageTransition>
       <About
         name="Ian Kinoti"
-        image="/profile.jpg"
+        image="/iankinoti.jpeg"
         about="My journey started with the fundamentals, but it quickly evolved into a fascination with how pieces fit together. Whether it's the clean structure of a backend API or the precision of Tailwind CSS, I've spent my time mastering the tools that allow for total control over the user experience. I believe great development is 50% architecture and 50% psychology — to build something elegant, you have to understand user behavior and how to guide a user's eye."
         techStack={techStack}
       />

@@ -21,7 +21,7 @@ export default function App() {
       <Header name="Ian Kinoti" navLinks={NAV_LINKS} />
       <About
         name="Ian Kinoti"
-        image="/profile.jpg"
+        image="/iankinoti.jpeg"
         about="My journey started with the fundamentals, but it quickly evolved into a fascination with how pieces fit together. Whether it's the clean structure of a backend API or the precision of Tailwind CSS, I've spent my time mastering the tools that allow for total control over the user experience."
         techStack={TECH_STACK}
       />
