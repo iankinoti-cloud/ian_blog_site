@@ -1,5 +1,5 @@
-import PostCard from "@/components/shared/PostCard";
-import { FadeUp, StaggerContainer, StaggerItem, PageTransition } from "@/components/shared/Motion";
+import ArticleList from "@/components/ArticleList";
+import { FadeUp, PageTransition } from "@/components/shared/Motion";
 import { getAllPosts } from "@/lib/posts";
 
 const allPosts = getAllPosts();
@@ -14,13 +14,7 @@ export default function BlogPage() {
           <div className="mt-4 h-px w-12 bg-[var(--tan)]" />
         </div>
       </FadeUp>
-      <StaggerContainer className="flex flex-col gap-6">
-        {allPosts.map((post) => (
-          <StaggerItem key={post.slug}>
-            <PostCard post={post} />
-          </StaggerItem>
-        ))}
-      </StaggerContainer>
+      <ArticleList articles={allPosts} />
     </PageTransition>
   );
 }
