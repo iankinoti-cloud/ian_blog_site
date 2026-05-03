@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="17" failures="0" errors="0" time="0.221406984">
-    <testsuite name="src/App.test.jsx" timestamp="2026-05-03T10:02:54.252Z" hostname="khelan-HP-EliteBook-x360-1040-G8-Notebook-PC" tests="17" failures="0" errors="0" skipped="0" time="0.221406984">
-        <testcase classname="src/App.test.jsx" name="Header &gt; renders an &lt;h1&gt; with the name prop" time="0.121104954">
+<testsuites name="vitest tests" tests="17" failures="0" errors="0" time="0.19353843">
+    <testsuite name="src/App.test.jsx" timestamp="2026-05-03T10:08:34.780Z" hostname="khelan-HP-EliteBook-x360-1040-G8-Notebook-PC" tests="17" failures="0" errors="0" skipped="0" time="0.19353843">
+        <testcase classname="src/App.test.jsx" name="Header &gt; renders an &lt;h1&gt; with the name prop" time="0.102446375">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="Header &gt; renders nav links" time="0.011629934">
+        <testcase classname="src/App.test.jsx" name="Header &gt; renders nav links" time="0.008337406">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="About &gt; renders an &lt;aside&gt; element" time="0.003579173">
+        <testcase classname="src/App.test.jsx" name="About &gt; renders an &lt;aside&gt; element" time="0.003681596">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="About &gt; renders an &lt;img&gt; with alt=&quot;blog logo&quot;" time="0.002262118">
+        <testcase classname="src/App.test.jsx" name="About &gt; renders an &lt;img&gt; with alt=&quot;blog logo&quot;" time="0.002459883">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="About &gt; renders the about text in a &lt;p&gt;" time="0.00195773">
+        <testcase classname="src/App.test.jsx" name="About &gt; renders the about text in a &lt;p&gt;" time="0.002068023">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="Article &gt; renders an &lt;article&gt; element" time="0.001551844">
+        <testcase classname="src/App.test.jsx" name="Article &gt; renders an &lt;article&gt; element" time="0.001590794">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="Article &gt; renders the title in an &lt;h3&gt;" time="0.006937296">
+        <testcase classname="src/App.test.jsx" name="Article &gt; renders the title in an &lt;h3&gt;" time="0.004757623">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="Article &gt; renders the date in a &lt;small&gt;" time="0.001900016">
+        <testcase classname="src/App.test.jsx" name="Article &gt; renders the date in a &lt;small&gt;" time="0.001493352">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="Article &gt; renders the preview in a &lt;p&gt;" time="0.0018123">
+        <testcase classname="src/App.test.jsx" name="Article &gt; renders the preview in a &lt;p&gt;" time="0.001703396">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="ArticleList &gt; renders a &lt;main&gt; element" time="0.002340056">
+        <testcase classname="src/App.test.jsx" name="ArticleList &gt; renders a &lt;main&gt; element" time="0.002322229">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="ArticleList &gt; renders one &lt;Article&gt; per post" time="0.006629056">
+        <testcase classname="src/App.test.jsx" name="ArticleList &gt; renders one &lt;Article&gt; per post" time="0.006419074">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="ArticleList &gt; passes title, date, and preview to each Article" time="0.003010965">
+        <testcase classname="src/App.test.jsx" name="ArticleList &gt; passes title, date, and preview to each Article" time="0.002781316">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="App &gt; renders a &lt;header&gt;" time="0.010961301">
+        <testcase classname="src/App.test.jsx" name="App &gt; renders a &lt;header&gt;" time="0.01089766">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="App &gt; renders an &lt;aside&gt;" time="0.011981493">
+        <testcase classname="src/App.test.jsx" name="App &gt; renders an &lt;aside&gt;" time="0.008607598">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="App &gt; renders a &lt;main&gt;" time="0.014054511">
+        <testcase classname="src/App.test.jsx" name="App &gt; renders a &lt;main&gt;" time="0.012555944">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="App &gt; renders at least one article" time="0.009903519">
+        <testcase classname="src/App.test.jsx" name="App &gt; renders at least one article" time="0.010352822">
         </testcase>
-        <testcase classname="src/App.test.jsx" name="App &gt; renders the blog logo image" time="0.007260975">
+        <testcase classname="src/App.test.jsx" name="App &gt; renders the blog logo image" time="0.006894587">
         </testcase>
     </testsuite>
 </testsuites>
