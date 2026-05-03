@@ -17,11 +17,11 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      // Alias both the local Link wrapper and next/link directly.
-      // Codegrade runs plain Vite without Next.js, so these must resolve
-      // to our stub before Vite's static import analysis runs.
+      // Codegrade uses a plain Vite template — next and framer-motion are not installed.
+      // These aliases let Vite resolve the imports at transform time so vi.mock can run.
       '@/components/shared/Link': path.resolve(__dirname, 'src/__mocks__/next-link.tsx'),
       'next/link': path.resolve(__dirname, 'src/__mocks__/next-link.tsx'),
+      'framer-motion': path.resolve(__dirname, 'src/__mocks__/framer-motion.tsx'),
     },
   },
 });
