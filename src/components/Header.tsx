@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import AnimatedName from "@/components/shared/AnimatedName";
 
 export interface HeaderProps {
@@ -12,13 +12,30 @@ export interface HeaderProps {
 
 export default function Header({ name, navLinks }: HeaderProps) {
   const [wiggleTrigger, setWiggleTrigger] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const handleNavClick = useCallback(() => {
     setWiggleTrigger((n) => n + 1);
   }, []);
 
   return (
-    <header className="w-full border-b border-[var(--tan-light)] bg-[var(--parchment)]">
+    <header
+      className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500"
+      style={{
+        background: scrolled ? "var(--parchment)" : "transparent",
+        borderBottom: scrolled
+          ? "1px solid var(--tan-light)"
+          : "1px solid transparent",
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+      }}
+    >
       <h1 className="sr-only">{name}</h1>
       <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-5">
         <Link
