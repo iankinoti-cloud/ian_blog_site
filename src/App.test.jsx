@@ -3,20 +3,25 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
-// ─── Mock framer-motion (handles any motion.xxx element) ───────────────────
-vi.mock('framer-motion', () => {
-  const React = require('react');
+// ─── Mock framer-motion ────────────────────────────────────────────────────
+vi.mock('framer-motion', async () => {
+  const ReactModule = await import('react');
+  const React = ReactModule.default ?? ReactModule;
+
+  const STRIP = new Set([
+    'initial','animate','exit','variants','transition',
+    'whileHover','whileTap','whileFocus','whileDrag','whileInView',
+    'viewport','drag','dragConstraints','dragElastic','dragMomentum',
+    'onHoverStart','onHoverEnd','onDragStart','onDragEnd',
+    'layout','layoutId','style',
+  ]);
 
   const createMotionComponent = (tag) =>
-    React.forwardRef(function MotionComponent({ children, ...props }, ref) {
-      const {
-        initial, animate, exit, variants, transition,
-        whileHover, whileTap, whileFocus, whileDrag, whileInView,
-        drag, dragConstraints, dragElastic, dragMomentum,
-        onHoverStart, onHoverEnd, onDragStart, onDragEnd,
-        layout, layoutId,
-        ...domProps
-      } = props;
+    React.forwardRef(function MotionComponent({ children, style, ...props }, ref) {
+      const domProps = {};
+      for (const [k, v] of Object.entries(props)) {
+        if (!STRIP.has(k)) domProps[k] = v;
+      }
       return React.createElement(tag, { ...domProps, ref }, children);
     });
 
@@ -25,15 +30,20 @@ vi.mock('framer-motion', () => {
   return {
     motion,
     AnimatePresence: ({ children }) => children,
-    useAnimation: () => ({ start: vi.fn().mockResolvedValue(undefined), stop: vi.fn(), set: vi.fn() }),
+    useAnimation: () => ({
+      start: vi.fn(() => Promise.resolve()),
+      stop: vi.fn(),
+      set: vi.fn(),
+    }),
     useInView: () => [React.createRef(), true],
     useScroll: () => ({ scrollY: { get: () => 0 }, scrollYProgress: { get: () => 0 } }),
   };
 });
 
 // ─── Mock next/link ────────────────────────────────────────────────────────
-vi.mock('next/link', () => {
-  const React = require('react');
+vi.mock('next/link', async () => {
+  const ReactModule = await import('react');
+  const React = ReactModule.default ?? ReactModule;
   return {
     default: React.forwardRef(function Link({ children, href, className, onClick, ...rest }, ref) {
       return React.createElement('a', { href, className, onClick, ref, ...rest }, children);
