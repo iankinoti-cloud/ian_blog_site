@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/shared/Link";
 import { motion } from "framer-motion";
 import TagBadge from "@/components/shared/TagBadge";
 
@@ -17,7 +17,7 @@ export default function Article({ title, date, preview, slug, tags }: ArticlePro
     <motion.article
       whileHover={{ y: -4, boxShadow: "0 12px 40px -8px rgba(107,66,38,0.18)" }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="rounded-2xl border border-[var(--tan-light)] bg-[var(--parchment)] p-7 shadow-sm cursor-pointer"
+      className="rounded-2xl border border-[var(--tan-light)] bg-[var(--parchment)] p-5 sm:p-7 shadow-sm cursor-pointer"
     >
       {tags && tags.length > 0 && (
         <div className="mb-3 flex flex-wrap gap-2">

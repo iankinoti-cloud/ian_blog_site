@@ -10,7 +10,7 @@ export default function HomePage() {
   return (
     <PageTransition>
       {/* Hero */}
-      <section className="mb-24 text-center">
+      <section className="mb-14 md:mb-24 text-center">
         <FadeUp delay={0}>
           <p className="mb-3 text-xs tracking-[0.3em] uppercase text-[var(--brown-muted)]">
             Developer · Writer · Builder
@@ -36,7 +36,7 @@ export default function HomePage() {
         </FadeUp>
 
         <FadeUp delay={0.4}>
-          <div className="mt-10 flex justify-center gap-4">
+          <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4">
             <Button href="/blog">Read the Blog</Button>
             <Button href="/about" variant="secondary">About Me</Button>
           </div>
@@ -44,7 +44,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Posts */}
-      <section className="mb-24">
+      <section className="mb-14 md:mb-24">
         <FadeUp>
           <h2 className="mb-8 text-xs tracking-[0.3em] uppercase text-[var(--brown-muted)]">
             Featured Posts
@@ -61,13 +61,13 @@ export default function HomePage() {
 
       {/* CTA */}
       <FadeUp>
-        <section className="rounded-2xl border border-[var(--tan-light)] bg-[var(--parchment)] px-10 py-14 text-center">
+        <section className="rounded-2xl border border-[var(--tan-light)] bg-[var(--parchment)] px-5 py-10 sm:px-10 sm:py-14 text-center">
           <p className="text-xs tracking-[0.3em] uppercase text-[var(--brown-muted)]">My Mission</p>
-          <h2 className="mt-4 text-3xl font-bold text-[var(--brown-dark)] leading-snug">
+          <h2 className="mt-4 text-2xl sm:text-3xl font-bold text-[var(--brown-dark)] leading-snug">
             Code is my medium. Impact is my output.
           </h2>
           <p className="mx-auto mt-5 max-w-lg text-[var(--text-muted)] leading-relaxed">
-            I want to channel my skills and creativity into software that solves real problems —
+            I want to channel my skills and creativity into software that solves real problems and inspires others. It&rsquo;s not just about writing code; it&rsquo;s about
             building systems that are not just functional, but deliberately crafted.
             Every project is an opportunity to turn technical precision into something
             that genuinely moves people forward.

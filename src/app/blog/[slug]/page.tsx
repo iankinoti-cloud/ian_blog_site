@@ -33,7 +33,7 @@ export default async function BlogPostPage({
               <TagBadge key={tag} tag={tag} />
             ))}
           </div>
-          <h1 className="mt-4 text-4xl font-bold text-[var(--brown-dark)]">{post.title}</h1>
+          <h1 className="mt-4 text-2xl sm:text-4xl font-bold text-[var(--brown-dark)]">{post.title}</h1>
           <p className="mt-3 text-xs tracking-[0.3em] uppercase text-[var(--brown-muted)]">{post.date}</p>
           <div className="mt-4 h-px w-12 bg-[var(--tan)]" />
         </FadeUp>

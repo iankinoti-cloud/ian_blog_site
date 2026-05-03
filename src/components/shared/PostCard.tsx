@@ -11,7 +11,7 @@ export default function PostCard({ post }: { post: Post }) {
     <motion.article
       whileHover={{ y: -4, boxShadow: "0 12px 40px -8px rgba(107,66,38,0.18)" }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="rounded-2xl border border-[var(--tan-light)] bg-[var(--parchment)] p-7 shadow-sm cursor-pointer"
+      className="rounded-2xl border border-[var(--tan-light)] bg-[var(--parchment)] p-5 sm:p-7 shadow-sm cursor-pointer"
     >
       <div className="mb-3 flex flex-wrap gap-2">
         {post.tags.map((tag) => (

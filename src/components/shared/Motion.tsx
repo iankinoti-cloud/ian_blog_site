@@ -19,6 +19,7 @@ export function FadeUp({
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay }}
       className={className}
+      suppressHydrationWarning
     >
       {children}
     </motion.div>
@@ -43,6 +44,7 @@ export function StaggerContainer({
         visible: { transition: { staggerChildren: 0.12 } },
       }}
       className={className}
+      suppressHydrationWarning
     >
       {children}
     </motion.div>
@@ -64,6 +66,7 @@ export function StaggerItem({
         visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
       }}
       className={className}
+      suppressHydrationWarning
     >
       {children}
     </motion.div>
@@ -77,6 +80,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      suppressHydrationWarning
     >
       {children}
     </motion.div>

@@ -107,6 +107,7 @@ function AnimatedLetter({
 
   return (
     <motion.span
+      initial={{ y: 0, scale: 1 }}
       animate={controls}
       onHoverStart={handleHoverStart}
       onHoverEnd={handleHoverEnd}
@@ -137,7 +138,7 @@ export default function AnimatedName({ size = "hero", wiggleTrigger = 0 }: Anima
   const isHero = size === "hero";
 
   const baseStyle: React.CSSProperties = {
-    fontSize: isHero ? "clamp(3rem, 8vw, 5.5rem)" : "1.875rem",
+    fontSize: isHero ? "clamp(3rem, 8vw, 5.5rem)" : "clamp(1.1rem, 4.5vw, 1.875rem)",
     fontWeight: isHero ? 900 : 700,
     letterSpacing: isHero ? "0.1em" : "0.18em",
     lineHeight: isHero ? 1 : undefined,

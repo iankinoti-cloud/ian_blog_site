@@ -10,7 +10,7 @@ export default function BlogPage() {
       <FadeUp>
         <div className="mb-10">
           <p className="text-xs tracking-[0.3em] uppercase text-[var(--brown-muted)]">Writing</p>
-          <h1 className="mt-2 text-4xl font-bold text-[var(--brown-dark)]">Blog</h1>
+          <h1 className="mt-2 text-3xl sm:text-4xl font-bold text-[var(--brown-dark)]">Blog</h1>
           <div className="mt-4 h-px w-12 bg-[var(--tan)]" />
         </div>
       </FadeUp>
