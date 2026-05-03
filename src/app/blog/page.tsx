@@ -14,7 +14,7 @@ export default function BlogPage() {
           <div className="mt-4 h-px w-12 bg-[var(--tan)]" />
         </div>
       </FadeUp>
-      <ArticleList articles={allPosts} />
+      <ArticleList posts={allPosts} />
     </PageTransition>
   );
 }

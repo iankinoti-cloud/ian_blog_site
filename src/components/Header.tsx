@@ -19,6 +19,7 @@ export default function Header({ name, navLinks }: HeaderProps) {
 
   return (
     <header className="w-full border-b border-[var(--tan-light)] bg-[var(--parchment)]">
+      <h1 className="sr-only">{name}</h1>
       <nav className="mx-auto flex max-w-4xl items-center justify-between px-6 py-5">
         <Link
           href="/"

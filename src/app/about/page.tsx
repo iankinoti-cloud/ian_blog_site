@@ -12,8 +12,8 @@ export default function AboutPage() {
     <PageTransition>
       <About
         name="Ian Kinoti"
-        bio="My journey started with the fundamentals, but it quickly evolved into a fascination with how pieces fit together. Whether it's the clean structure of a Ruby on Rails backend or the precision of Tailwind CSS, I've spent my time mastering the tools that allow for total control over the user experience."
-        philosophy="I believe great development is 50% architecture and 50% psychology. To build a platform like a professional marketplace or an elegant educational interface, you have to understand user behavior and how to guide a user's eye, how to ensure security, and how to make a digital interaction feel as solid as a physical one."
+        image="/profile.jpg"
+        about="My journey started with the fundamentals, but it quickly evolved into a fascination with how pieces fit together. Whether it's the clean structure of a backend API or the precision of Tailwind CSS, I've spent my time mastering the tools that allow for total control over the user experience. I believe great development is 50% architecture and 50% psychology — to build something elegant, you have to understand user behavior and how to guide a user's eye."
         techStack={techStack}
       />
     </PageTransition>

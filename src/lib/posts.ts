@@ -3,6 +3,7 @@ export interface Post {
   title: string;
   date: string;
   excerpt: string;
+  preview: string;
   tags: string[];
   content: string;
   featured?: boolean;
@@ -14,6 +15,8 @@ export const posts: Post[] = [
     title: "Hey Everyone!",
     date: "May 3, 2026",
     excerpt:
+      "Welcome to my blog! This is my first post, this is  where I'll break down complex builds, share thoughts on digital power dynamics, and showcase projects that move the needle.",
+    preview:
       "Welcome to my blog! This is my first post, this is  where I'll break down complex builds, share thoughts on digital power dynamics, and showcase projects that move the needle.",
     tags: ["intro", "personal"],
     featured: true,
