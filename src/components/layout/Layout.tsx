@@ -11,9 +11,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col bg-[var(--cream)]">
       <Header name="Ian Kinoti" navLinks={NAV_LINKS} />
-      <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-16">
+      <div className="mx-auto w-full max-w-4xl flex-1 px-6 py-16">
         {children}
-      </main>
+      </div>
       <Footer />
     </div>
   );
