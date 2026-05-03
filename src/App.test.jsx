@@ -1,9 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { vi } from 'vitest';
 
 // ─── Mock framer-motion (handles any motion.xxx element) ───────────────────
-jest.mock('framer-motion', () => {
+vi.mock('framer-motion', () => {
   const React = require('react');
 
   const createMotionComponent = (tag) =>
@@ -24,18 +25,20 @@ jest.mock('framer-motion', () => {
   return {
     motion,
     AnimatePresence: ({ children }) => children,
-    useAnimation: () => ({ start: jest.fn().mockResolvedValue(undefined), stop: jest.fn(), set: jest.fn() }),
+    useAnimation: () => ({ start: vi.fn().mockResolvedValue(undefined), stop: vi.fn(), set: vi.fn() }),
     useInView: () => [React.createRef(), true],
     useScroll: () => ({ scrollY: { get: () => 0 }, scrollYProgress: { get: () => 0 } }),
   };
 });
 
 // ─── Mock next/link ────────────────────────────────────────────────────────
-jest.mock('next/link', () => {
+vi.mock('next/link', () => {
   const React = require('react');
-  return React.forwardRef(function Link({ children, href, className, onClick, ...rest }, ref) {
-    return React.createElement('a', { href, className, onClick, ref, ...rest }, children);
-  });
+  return {
+    default: React.forwardRef(function Link({ children, href, className, onClick, ...rest }, ref) {
+      return React.createElement('a', { href, className, onClick, ref, ...rest }, children);
+    }),
+  };
 });
 
 // ─── Imports ──────────────────────────────────────────────────────────────
