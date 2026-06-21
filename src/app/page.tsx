@@ -37,7 +37,8 @@ export default function HomePage() {
 
         <FadeUp delay={0.4}>
           <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4">
-            <Button href="/blog">Read the Blog</Button>
+            <Button href="/projects">View Projects</Button>
+            <Button href="/blog" variant="secondary">Read the Blog</Button>
             <Button href="/about" variant="secondary">About Me</Button>
           </div>
         </FadeUp>
