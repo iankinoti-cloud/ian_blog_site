@@ -16,6 +16,8 @@ export default function Header({ name, navLinks }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
+    // Read actual scroll position on mount — catches hard-refresh mid-page
+    setScrolled(window.scrollY > 10);
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -26,9 +28,16 @@ export default function Header({ name, navLinks }: HeaderProps) {
     setMenuOpen(false);
   }, []);
 
-  const headerBg = scrolled || menuOpen ? "var(--parchment)" : "transparent";
-  const headerBorder =
-    scrolled || menuOpen ? "1px solid var(--tan-light)" : "1px solid transparent";
+  // Always glass — never transparent on refresh or at scrollY=0
+  const headerBg = scrolled || menuOpen
+    ? "linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%), rgba(237,227,211,0.82)"
+    : "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.04) 100%), rgba(237,227,211,0.62)";
+  const headerBorder = scrolled || menuOpen
+    ? "1px solid rgba(255,255,255,0.55)"
+    : "1px solid rgba(255,255,255,0.28)";
+  const headerShadow = scrolled || menuOpen
+    ? "0 2px 24px rgba(107,66,38,0.10), inset 0 1px 1px rgba(255,255,255,0.7)"
+    : "0 1px 8px rgba(107,66,38,0.04), inset 0 1px 1px rgba(255,255,255,0.5)";
 
   return (
     <header
@@ -36,8 +45,9 @@ export default function Header({ name, navLinks }: HeaderProps) {
       style={{
         background: headerBg,
         borderBottom: headerBorder,
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+        boxShadow: headerShadow,
+        backdropFilter: scrolled || menuOpen ? "blur(16px) saturate(160%)" : "blur(8px) saturate(130%)",
+        WebkitBackdropFilter: scrolled || menuOpen ? "blur(16px) saturate(160%)" : "blur(8px) saturate(130%)",
       }}
     >
       <h1 className="sr-only">{name}</h1>

@@ -2,47 +2,28 @@ import PostCard from "@/components/shared/PostCard";
 import Button from "@/components/shared/Button";
 import { FadeUp, StaggerContainer, StaggerItem, PageTransition } from "@/components/shared/Motion";
 import { getFeaturedPosts } from "@/lib/posts";
-import AnimatedName from "@/components/shared/AnimatedName";
+import IanCreativeBanner from "@/components/shared/IanCreativeBanner";
+import ProjectMarquee from "@/components/shared/ProjectMarquee";
 
 const featuredPosts = getFeaturedPosts();
 
 export default function HomePage() {
   return (
     <PageTransition>
-      {/* Hero */}
-      <section className="mb-14 md:mb-24 text-center">
-        <FadeUp delay={0}>
-          <p className="mb-3 text-xs tracking-[0.3em] uppercase text-[var(--brown-muted)]">
-            Developer · Writer · Builder
-          </p>
-        </FadeUp>
-
-        <FadeUp delay={0.1}>
-          <h1 className="flex justify-center" style={{ lineHeight: 1.1 }}>
-            <AnimatedName size="hero" />
-          </h1>
-        </FadeUp>
-
+      {/* Hero — IAN Creative Banner */}
+      <section className="mb-14 md:mb-24">
+        <IanCreativeBanner />
         <FadeUp delay={0.2}>
-          <div className="mx-auto mt-5 h-px w-16 bg-[var(--tan)]" />
-        </FadeUp>
-
-        <FadeUp delay={0.3}>
-          <p className="mx-auto mt-7 max-w-xl text-lg text-[var(--text-muted)] leading-relaxed">
-            &ldquo;Most people see a website as a collection of divs and scripts.
-            I see a digital ecosystem, a space where logic dictates the flow,
-            but creativity dictates the impact.&rdquo;
-          </p>
-        </FadeUp>
-
-        <FadeUp delay={0.4}>
-          <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4">
+          <div className="mt-6 flex flex-wrap justify-center gap-3 sm:gap-4">
             <Button href="/projects">View Projects</Button>
             <Button href="/blog" variant="secondary">Read the Blog</Button>
             <Button href="/about" variant="secondary">About Me</Button>
           </div>
         </FadeUp>
       </section>
+
+      {/* Projects marquee — full bleed, two rows */}
+      <ProjectMarquee />
 
       {/* Featured Posts */}
       <section className="mb-14 md:mb-24">
@@ -62,18 +43,77 @@ export default function HomePage() {
 
       {/* CTA */}
       <FadeUp>
-        <section className="rounded-2xl border border-[var(--tan-light)] bg-[var(--parchment)] px-5 py-10 sm:px-10 sm:py-14 text-center">
-          <p className="text-xs tracking-[0.3em] uppercase text-[var(--brown-muted)]">My Mission</p>
-          <h2 className="mt-4 text-2xl sm:text-3xl font-bold text-[var(--brown-dark)] leading-snug">
-            Code is my medium. Impact is my output.
-          </h2>
-          <p className="mx-auto mt-5 max-w-lg text-[var(--text-muted)] leading-relaxed">
-            I want to channel my skills and creativity into software that solves real problems and inspires others. It&rsquo;s not just about writing code; it&rsquo;s about
-            building systems that are not just functional, but deliberately crafted.
-            Every project is an opportunity to turn technical precision into something
-            that genuinely moves people forward.
+        <section
+          className="rounded-2xl backdrop-blur-xl backdrop-saturate-150 text-center"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.08) 50%, rgba(201,168,124,0.12) 100%), rgba(237,227,211,0.72)",
+            border: "1px solid rgba(255,255,255,0.65)",
+            boxShadow:
+              "0 8px 40px rgba(107,66,38,0.12), 0 2px 8px rgba(107,66,38,0.06), inset 0 1px 1px rgba(255,255,255,0.88)",
+            padding: "clamp(36px, 6vw, 56px) clamp(20px, 4vw, 40px)",
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          {/* Shimmer */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: "8%",
+              right: "8%",
+              height: 1,
+              background:
+                "linear-gradient(to right, transparent, rgba(255,255,255,0.92), transparent)",
+              pointerEvents: "none",
+            }}
+          />
+
+          <p
+            style={{
+              fontSize: 11,
+              letterSpacing: "0.3em",
+              textTransform: "uppercase",
+              color: "var(--brown-muted)",
+              fontFamily: "'Space Grotesk', sans-serif",
+            }}
+          >
+            My Mission
           </p>
-          <div className="mt-8">
+
+          <h2
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              fontWeight: 900,
+              fontSize: "clamp(36px, 6vw, 62px)",
+              letterSpacing: "-0.01em",
+              color: "var(--brown-dark)",
+              lineHeight: 0.92,
+              marginTop: 12,
+            }}
+          >
+            Code is my medium.<br />Impact is my output.
+          </h2>
+
+          <p
+            style={{
+              margin: "20px auto 0",
+              maxWidth: 480,
+              color: "var(--text-muted)",
+              lineHeight: 1.75,
+              fontSize: "clamp(14px, 1.5vw, 16px)",
+            }}
+          >
+            I want to channel my skills and creativity into software that solves
+            real problems and inspires others. It&rsquo;s not just about writing code;
+            it&rsquo;s about building systems that are deliberately crafted. Every project
+            is an opportunity to turn technical precision into something that
+            genuinely moves people forward.
+          </p>
+
+          <div style={{ marginTop: 28 }}>
             <Button href="/blog">Start Reading</Button>
           </div>
         </section>

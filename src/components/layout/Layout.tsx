@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "./Footer";
+import FooterParallaxStrip from "@/components/shared/FooterParallaxStrip";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -15,6 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="mx-auto w-full max-w-4xl flex-1 px-4 sm:px-6 py-10 pt-24 sm:py-16 sm:pt-28">
         {children}
       </div>
+      <FooterParallaxStrip />
       <Footer />
     </div>
   );

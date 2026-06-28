@@ -17,7 +17,7 @@ const createComponent = (tag: string) =>
       for (const [k, v] of Object.entries(props)) {
         if (!strip.has(k)) domProps[k] = v;
       }
-      return React.createElement(tag, { ...domProps, ref }, children);
+      return React.createElement(tag, { ...domProps, ref }, children as React.ReactNode);
     }
   );
 
