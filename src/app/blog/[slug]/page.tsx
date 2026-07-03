@@ -1,4 +1,5 @@
 import TagBadge from "@/components/shared/TagBadge";
+import ScrollProgress from "@/components/shared/ScrollProgress";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { FadeUp, PageTransition } from "@/components/shared/Motion";
@@ -28,6 +29,7 @@ export default async function BlogPostPage({
 
   return (
     <PageTransition>
+      <ScrollProgress />
       <article className="max-w-2xl">
         <FadeUp>
           <Link
@@ -82,7 +84,7 @@ export default async function BlogPostPage({
 
         <FadeUp delay={0.15}>
           <div
-            className="rounded-2xl backdrop-blur-md backdrop-saturate-150"
+            className="rounded-2xl backdrop-blur-sm backdrop-saturate-150"
             style={{
               ...GLASS,
               marginTop: 36,

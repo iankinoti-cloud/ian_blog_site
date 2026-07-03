@@ -85,9 +85,10 @@ describe('About', () => {
     expect(container.querySelector('aside')).toBeInTheDocument();
   });
 
-  it('renders an <img> with alt="blog logo"', () => {
+  it('renders the profile image from the image prop', () => {
     render(<About image="/test.jpg" about="About text" />);
-    expect(screen.getByAltText('blog logo')).toBeInTheDocument();
+    const imgs = screen.getAllByRole('img');
+    expect(imgs.some((img) => img.getAttribute('src') === '/test.jpg')).toBe(true);
   });
 
   it('renders the about text in a <p>', () => {
@@ -175,8 +176,9 @@ describe('App', () => {
     expect(screen.getAllByRole('article').length).toBeGreaterThan(0);
   });
 
-  it('renders the blog logo image', () => {
+  it('renders the developer profile image', () => {
     render(<App />);
-    expect(screen.getByAltText('blog logo')).toBeInTheDocument();
+    const imgs = screen.getAllByRole('img');
+    expect(imgs.some((img) => img.getAttribute('src') === '/iankinoti.jpeg')).toBe(true);
   });
 });

@@ -3,10 +3,11 @@
 import { useRef } from "react";
 import {
   motion, useScroll, useTransform, useSpring, MotionValue,
-  useMotionValue, AnimatePresence,
+  useMotionValue, AnimatePresence, useInView,
 } from "framer-motion";
 import Link from "next/link";
 import type { Post } from "@/lib/posts";
+import { FlipFadeText } from "@/components/ui/flip-fade-text";
 
 /* ─── Hologram glass card ────────────────────────────────────────────────── */
 function HologramCard({ children }: { children: React.ReactNode }) {
@@ -297,25 +298,28 @@ function VendettaOverlay() {
 }
 
 function IanCreativeOverlay() {
+  const ref = useRef<HTMLDivElement>(null);
+  // Pause the word cycle while this chapter is scrolled offscreen
+  const inView = useInView(ref, { margin: "80px 0px" });
+
   return (
     <>
       <div aria-hidden style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.42)" }} />
       <div aria-hidden style={{ position: "absolute", top: 20, left: 20, right: 20, bottom: 20, border: "0.5px solid rgba(255,255,255,0.18)", pointerEvents: "none" }} />
-      <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+      <motion.div ref={ref} initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
         style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 14 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14, width: "clamp(180px, 28vw, 300px)" }}>
           <div style={{ flex: 1, height: "0.5px", background: "rgba(255,255,255,0.38)" }} />
           <p style={{ fontFamily: mono, fontSize: 9, letterSpacing: "0.38em", color: "rgba(255,255,255,0.5)", textTransform: "uppercase", whiteSpace: "nowrap" }}>MADE BY</p>
           <div style={{ flex: 1, height: "0.5px", background: "rgba(255,255,255,0.38)" }} />
         </div>
-        <p style={{ fontFamily: cond, fontWeight: 900, fontSize: "clamp(28px, 6vw, 76px)", letterSpacing: "0.12em", color: "white", textTransform: "uppercase" }}>IAN CREATIVE</p>
-        <svg viewBox="0 0 96 52" fill="none" style={{ width: "clamp(44px, 6.5vw, 76px)", opacity: 0.82 }}>
-          <rect x="0" y="4" width="10" height="44" fill="white"/>
-          <polygon points="20,4 32,4 44,38 44,4 54,4 54,48 44,48 32,14 32,48 20,48" fill="white"/>
-          <rect x="60" y="4" width="10" height="44" fill="white"/>
-          <rect x="60" y="4" width="36" height="10" fill="white"/>
-          <rect x="60" y="21" width="28" height="10" fill="white"/>
-        </svg>
+        {/* Brand holds calm, then a quick three-word flip, then home again */}
+        <FlipFadeText
+          words={["IAN CREATIVE", "BEAUTIFUL", "DYNAMIC", "POWERFUL"]}
+          intervals={[3000, 900, 900, 900]}
+          active={inView}
+          style={{ fontFamily: cond, fontWeight: 900, fontSize: "clamp(28px, 6vw, 76px)", letterSpacing: "0.12em", color: "white", textTransform: "uppercase", whiteSpace: "nowrap" }}
+        />
         <div style={{ display: "flex", alignItems: "center", gap: 14, width: "clamp(180px, 28vw, 300px)", marginTop: 4 }}>
           <div style={{ flex: 1, height: "0.5px", background: "rgba(255,255,255,0.38)" }} />
           <div style={{ flex: 1, height: "0.5px", background: "rgba(255,255,255,0.38)" }} />

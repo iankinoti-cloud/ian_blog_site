@@ -11,6 +11,17 @@
   to   { transform: translateX(0); }
 }
 
+/* Footer strip bob — phase A starts high, phase B starts low */
+@keyframes stripBobA {
+  0%, 100% { transform: translateY(26px); }
+  50%      { transform: translateY(-26px); }
+}
+
+@keyframes stripBobB {
+  0%, 100% { transform: translateY(-26px); }
+  50%      { transform: translateY(26px); }
+}
+
 @keyframes skeletonShimmer {
   0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
@@ -63,6 +74,21 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Kill decorative motion (marquee, skeleton shimmer, CSS transitions) for
+   users who ask for it — framer-motion is handled by MotionConfig. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {

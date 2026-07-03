@@ -13,7 +13,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           "0 24px 64px -8px rgba(107,66,38,0.22), 0 6px 20px rgba(107,66,38,0.1), inset 0 1px 1px rgba(255,255,255,0.92)",
       }}
       transition={{ duration: 0.28, ease: "easeOut" }}
-      className="rounded-2xl backdrop-blur-xl backdrop-saturate-150 p-5 sm:p-7 relative overflow-hidden"
+      className="rounded-2xl backdrop-blur-sm backdrop-saturate-150 p-5 sm:p-7 relative overflow-hidden"
       style={{
         background:
           "linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 50%, rgba(201,168,124,0.1) 100%), rgba(237,227,211,0.52)",

@@ -88,10 +88,12 @@ function HologramCard({ children }: { children: React.ReactNode }) {
         rotateX: rotX, rotateY: rotY,
         transformStyle: "preserve-3d", perspective: 1200,
         position: "relative", overflow: "hidden", borderRadius: 20,
-        background: "linear-gradient(135deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.10) 50%, rgba(201,168,124,0.14) 100%), rgba(237,227,211,0.88)",
+        // No backdrop-filter here: these cards 3D-rotate on every mouse move,
+        // and re-blurring the backdrop per frame is what made the page choke.
+        // The 93%-opaque base keeps the glass look without sampling the backdrop.
+        background: "linear-gradient(135deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.10) 50%, rgba(201,168,124,0.14) 100%), rgba(237,227,211,0.93)",
         border: "1px solid rgba(255,255,255,0.72)",
         boxShadow: "0 28px 72px rgba(107,66,38,0.20), 0 6px 20px rgba(107,66,38,0.10), inset 0 1px 1px rgba(255,255,255,0.96)",
-        backdropFilter: "blur(28px) saturate(170%)",
       }}
     >
       <div aria-hidden style={{ position: "absolute", top: 0, left: "6%", right: "6%", height: 1, background: "linear-gradient(to right, transparent, rgba(255,255,255,0.96), transparent)", zIndex: 2, pointerEvents: "none" }} />

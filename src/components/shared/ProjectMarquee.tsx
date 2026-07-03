@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import { getAllProjects } from "@/lib/projects";
 import type { Project } from "@/lib/projects";
 
@@ -150,9 +150,13 @@ function MarqueeRow({
   duration: number;
 }) {
   const [paused, setPaused] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  // Marquee costs nothing while offscreen — pause it there too
+  const inView = useInView(ref, { margin: "160px 0px" });
 
   return (
     <div
+      ref={ref}
       style={{ overflow: "hidden", paddingTop: 16, paddingBottom: 16 }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -163,7 +167,7 @@ function MarqueeRow({
           gap: "clamp(12px, 1.4vw, 18px)",
           width: "max-content",
           animation: `${direction === "left" ? "marqueeLeft" : "marqueeRight"} ${duration}s linear infinite`,
-          animationPlayState: paused ? "paused" : "running",
+          animationPlayState: paused || !inView ? "paused" : "running",
         }}
       >
         {items.map((project, i) => (

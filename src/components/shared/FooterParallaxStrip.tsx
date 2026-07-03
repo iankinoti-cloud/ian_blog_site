@@ -1,15 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
 /*
   Two-axis ticker:
   - Outer track: continuous x scroll right → left (news headline motion)
   - Inner cards: simultaneous y bob — emblems up when banners down (bike pedal phase)
   - Doubled card set for seamless -50% loop
+
+  Runs as pure CSS keyframes (compositor-driven, no per-frame JS) and pauses
+  entirely while the strip is offscreen — it lives on every page, so it must
+  not tax scrolling elsewhere.
 */
 
-const AMP  = 26;   // vertical bob amplitude (px)
 const BOB  = 3.4;  // one full bob cycle (seconds)
 const TICK = 22;   // full horizontal loop (seconds) — slower = more editorial
 
@@ -24,8 +28,13 @@ const BASE = [
 const ALL = [...BASE, ...BASE];
 
 export default function FooterParallaxStrip() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { margin: "160px 0px" });
+  const playState = inView ? "running" : "paused";
+
   return (
     <div
+      ref={ref}
       style={{
         position: "relative",
         width: "100vw",
@@ -36,27 +45,20 @@ export default function FooterParallaxStrip() {
       }}
     >
       {/* ── Horizontal ticker track ──────────────────────────────────── */}
-      <motion.div
-        style={{ display: "flex", gap: 5, width: "max-content" }}
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{
-          duration: TICK,
-          ease: "linear",
-          repeat: Infinity,
+      <div
+        style={{
+          display: "flex",
+          gap: 5,
+          width: "max-content",
+          animation: `marqueeLeft ${TICK}s linear infinite`,
+          animationPlayState: playState,
+          willChange: "transform",
         }}
       >
         {ALL.map((card, i) => (
           /* ── Vertical bob — phase 1 = starts high, -1 = starts low ── */
-          <motion.div
+          <div
             key={i}
-            animate={{
-              y: [card.phase * AMP, card.phase * -AMP, card.phase * AMP],
-            }}
-            transition={{
-              duration: BOB,
-              ease: "easeInOut",
-              repeat: Infinity,
-            }}
             style={{
               width: card.w,
               flexShrink: 0,
@@ -66,6 +68,8 @@ export default function FooterParallaxStrip() {
               background: card.bg,
               boxShadow:
                 "0 6px 28px rgba(0,0,0,0.09), 0 1px 4px rgba(0,0,0,0.05)",
+              animation: `${card.phase === 1 ? "stripBobA" : "stripBobB"} ${BOB}s ease-in-out infinite`,
+              animationPlayState: playState,
               willChange: "transform",
             }}
           >
@@ -73,6 +77,7 @@ export default function FooterParallaxStrip() {
               src={card.src}
               alt={card.alt}
               draggable={false}
+              loading="lazy"
               style={{
                 width: "100%",
                 height: "100%",
@@ -82,9 +87,9 @@ export default function FooterParallaxStrip() {
                 userSelect: "none",
               }}
             />
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }

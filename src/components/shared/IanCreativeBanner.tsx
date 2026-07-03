@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, useInView } from "framer-motion";
 import { useEffect, useRef, useState, useCallback } from "react";
 
 type Controls = ReturnType<typeof useAnimation>;
@@ -55,10 +55,13 @@ function creativeFloatLoop(controls: Controls, index: number) {
 }
 
 // ── IAN letter ────────────────────────────────────────────────
-function BannerLetter({ ch, index }: { ch: string; index: number }) {
+function BannerLetter({ ch, index, active }: { ch: string; index: number; active: boolean }) {
   const controls = useAnimation();
   const [isHovered, setIsHovered] = useState(false);
   const hoveredRef = useRef(false);
+  const activeRef = useRef(active);
+  activeRef.current = active;
+  const entryDone = useRef(false);
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -70,13 +73,21 @@ function BannerLetter({ ch, index }: { ch: string; index: number }) {
         transition: { type: "spring", stiffness: 85, damping: 13, delay: 0.2 + index * 0.15 },
       })
       .then(() => {
-        if (!hoveredRef.current) ianFloatLoop(controls, index);
+        entryDone.current = true;
+        if (!hoveredRef.current && activeRef.current) ianFloatLoop(controls, index);
       });
     return () => {
       if (resumeTimer.current) clearTimeout(resumeTimer.current);
       controls.stop();
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Pause the float loop while scrolled offscreen, resume on return
+  useEffect(() => {
+    if (!entryDone.current || hoveredRef.current) return;
+    if (active) ianFloatLoop(controls, index);
+    else controls.stop();
+  }, [active, controls, index]);
 
   const handleHoverStart = useCallback(() => {
     hoveredRef.current = true;
@@ -91,7 +102,7 @@ function BannerLetter({ ch, index }: { ch: string; index: number }) {
     setIsHovered(false);
     controls
       .start({ y: 0, scale: 1, transition: { type: "spring", stiffness: 300, damping: 20 } })
-      .then(() => { if (!hoveredRef.current) ianFloatLoop(controls, index); });
+      .then(() => { if (!hoveredRef.current && activeRef.current) ianFloatLoop(controls, index); });
   }, [controls, index]);
 
   return (
@@ -123,10 +134,13 @@ function BannerLetter({ ch, index }: { ch: string; index: number }) {
 }
 
 // ── CREATIVE letter ───────────────────────────────────────────
-function CreativeLetter({ ch, index }: { ch: string; index: number }) {
+function CreativeLetter({ ch, index, active }: { ch: string; index: number; active: boolean }) {
   const controls = useAnimation();
   const [isHovered, setIsHovered] = useState(false);
   const hoveredRef = useRef(false);
+  const activeRef = useRef(active);
+  activeRef.current = active;
+  const entryDone = useRef(false);
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -138,13 +152,21 @@ function CreativeLetter({ ch, index }: { ch: string; index: number }) {
         transition: { type: "spring", stiffness: 80, damping: 13, delay: 0.75 + index * 0.07 },
       })
       .then(() => {
-        if (!hoveredRef.current) creativeFloatLoop(controls, index);
+        entryDone.current = true;
+        if (!hoveredRef.current && activeRef.current) creativeFloatLoop(controls, index);
       });
     return () => {
       if (resumeTimer.current) clearTimeout(resumeTimer.current);
       controls.stop();
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Pause the float loop while scrolled offscreen, resume on return
+  useEffect(() => {
+    if (!entryDone.current || hoveredRef.current) return;
+    if (active) creativeFloatLoop(controls, index);
+    else controls.stop();
+  }, [active, controls, index]);
 
   const handleHoverStart = useCallback(() => {
     hoveredRef.current = true;
@@ -159,7 +181,7 @@ function CreativeLetter({ ch, index }: { ch: string; index: number }) {
     setIsHovered(false);
     controls
       .start({ y: 0, scale: 1, transition: { type: "spring", stiffness: 300, damping: 20 } })
-      .then(() => { if (!hoveredRef.current) creativeFloatLoop(controls, index); });
+      .then(() => { if (!hoveredRef.current && activeRef.current) creativeFloatLoop(controls, index); });
   }, [controls, index]);
 
   return (
@@ -212,6 +234,9 @@ const bornLetterVariants = {
 
 // ── Banner ────────────────────────────────────────────────────
 export default function IanCreativeBanner() {
+  const rootRef = useRef<HTMLDivElement>(null);
+  // Float loops burn a frame budget on 11 shadowed letters — only while visible
+  const inView = useInView(rootRef, { amount: 0.1 });
   const midControls = useAnimation();
   const bottomControls = useAnimation();
 
@@ -234,6 +259,7 @@ export default function IanCreativeBanner() {
 
   return (
     <div
+      ref={rootRef}
       style={{
         position: "relative",
         width: "100%",
@@ -346,7 +372,7 @@ export default function IanCreativeBanner() {
         {/* IAN */}
         <div aria-label="IAN" style={{ lineHeight: 0.82, userSelect: "none" }}>
           {["I", "A", "N"].map((ch, i) => (
-            <BannerLetter key={ch} ch={ch} index={i} />
+            <BannerLetter key={ch} ch={ch} index={i} active={inView} />
           ))}
         </div>
 
@@ -361,7 +387,7 @@ export default function IanCreativeBanner() {
           }}
         >
           {"CREATIVE".split("").map((ch, i) => (
-            <CreativeLetter key={i} ch={ch} index={i} />
+            <CreativeLetter key={i} ch={ch} index={i} active={inView} />
           ))}
         </div>
 

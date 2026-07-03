@@ -2,7 +2,7 @@ import PostCard from "@/components/shared/PostCard";
 import Button from "@/components/shared/Button";
 import { FadeUp, StaggerContainer, StaggerItem, PageTransition } from "@/components/shared/Motion";
 import { getFeaturedPosts } from "@/lib/posts";
-import IanCreativeBanner from "@/components/shared/IanCreativeBanner";
+import LandingHero from "@/components/shared/LandingHero";
 import ProjectMarquee from "@/components/shared/ProjectMarquee";
 
 const featuredPosts = getFeaturedPosts();
@@ -10,16 +10,15 @@ const featuredPosts = getFeaturedPosts();
 export default function HomePage() {
   return (
     <PageTransition>
-      {/* Hero — IAN Creative Banner */}
+      {/* Hero — landing intro, then IAN Creative Banner */}
       <section className="mb-14 md:mb-24">
-        <IanCreativeBanner />
-        <FadeUp delay={0.2}>
+        <LandingHero>
           <div className="mt-6 flex flex-wrap justify-center gap-3 sm:gap-4">
             <Button href="/projects">View Projects</Button>
             <Button href="/blog" variant="secondary">Read the Blog</Button>
             <Button href="/about" variant="secondary">About Me</Button>
           </div>
-        </FadeUp>
+        </LandingHero>
       </section>
 
       {/* Projects marquee — full bleed, two rows */}
@@ -44,7 +43,7 @@ export default function HomePage() {
       {/* CTA */}
       <FadeUp>
         <section
-          className="rounded-2xl backdrop-blur-xl backdrop-saturate-150 text-center"
+          className="rounded-2xl backdrop-blur-sm backdrop-saturate-150 text-center"
           style={{
             background:
               "linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.08) 50%, rgba(201,168,124,0.12) 100%), rgba(237,227,211,0.72)",

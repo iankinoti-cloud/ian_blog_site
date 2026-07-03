@@ -41,13 +41,15 @@ export default function Header({ name, navLinks }: HeaderProps) {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500"
+      className="fixed top-0 left-0 right-0 z-50 w-full transition-[background,border-color,box-shadow] duration-500"
       style={{
         background: headerBg,
         borderBottom: headerBorder,
         boxShadow: headerShadow,
-        backdropFilter: scrolled || menuOpen ? "blur(16px) saturate(160%)" : "blur(8px) saturate(130%)",
-        WebkitBackdropFilter: scrolled || menuOpen ? "blur(16px) saturate(160%)" : "blur(8px) saturate(130%)",
+        // Constant blur: animating backdrop-filter forces a full-width re-blur
+        // per frame; a fixed 10px reads the same and scrolls smoothly.
+        backdropFilter: "blur(10px) saturate(140%)",
+        WebkitBackdropFilter: "blur(10px) saturate(140%)",
       }}
     >
       <h1 className="sr-only">{name}</h1>
@@ -125,7 +127,12 @@ export default function Header({ name, navLinks }: HeaderProps) {
           >
             <ul className="flex flex-col px-6 py-3">
               {navLinks.map((link) => (
-                <li key={link.href}>
+                <motion.li
+                  key={link.href}
+                  whileTap={{ scale: 0.97, x: 6 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 24 }}
+                  suppressHydrationWarning
+                >
                   <Link
                     href={link.href}
                     className="block py-3 text-sm tracking-widest uppercase text-[var(--brown-muted)] hover:text-[var(--brown-dark)] transition-colors border-b border-[var(--tan-light)] last:border-0"
@@ -133,7 +140,7 @@ export default function Header({ name, navLinks }: HeaderProps) {
                   >
                     {link.label}
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </motion.div>
